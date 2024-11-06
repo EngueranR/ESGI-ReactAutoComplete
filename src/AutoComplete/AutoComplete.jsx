@@ -8,6 +8,7 @@ export default function Autocomplete({
   searchFunction,
   isMultiSelect = false,
   template: TemplateComponent,
+  useSuggestion = false,
 }) {
   const [suggestions, setSuggestions] = useState([]);
   const [text, setText] = useState("");
@@ -44,15 +45,19 @@ export default function Autocomplete({
     }
   };
 
+  const suggestion = suggestions.length > 0 ? suggestions[0].label : "";
+
   return (
     <div className="autocomplete">
       <div className="selected-items">
         {isMultiSelect &&
           selectedItems.map((item, index) => (
             <div key={index} className="selected-item">
-              {item.titre || item.label}
+              {item.label}
             </div>
           ))}
+        {useSuggestion ? <div className="suggestion">{suggestion}</div> : null}
+
         <input
           type="text"
           onChange={(e) => setText(e.target.value || "")}
@@ -60,7 +65,6 @@ export default function Autocomplete({
         />
       </div>
       <FontAwesomeIcon icon={icon["faSearch"]} className="icon" />
-
       {isDropdownVisible && (
         <ul className="suggestions-list">
           {suggestions.map((suggestion, index) =>

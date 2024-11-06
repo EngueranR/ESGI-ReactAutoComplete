@@ -178,6 +178,16 @@ export default function Input() {
         isMultiSelect={true}
         template={ProductTemplate}
       />
+
+      <h1>
+        8. Autocomplete Product simple avec suggestion au lieu d'une liste
+      </h1>
+      <Autocomplete
+        data={productList}
+        onSelect={handleSelect}
+        searchFunction={searchProduct}
+        useSuggestion={true}
+      />
     </div>
   );
 }
