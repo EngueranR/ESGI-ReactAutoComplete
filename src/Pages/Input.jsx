@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Autocomplete from "../AutoComplete/AutoComplete";
+import ProductTemplate from "../Templates/ProductTemplate";
 
 export default function Input() {
   const [selectedValue, setSelectedValue] = useState("");
@@ -10,9 +11,13 @@ export default function Input() {
     useState([]);
 
   /* ---- !!!!!!!!!!!!!!!!!!!!!!! ----
-   J'ai pas utilisé les appels API avec terms, car j'ai repris les bases que j'avais commencer hier.
-   je passe directement une fonction de recherche au composant Autocomplete qui va filtrer les données
-   en fonction du texte dans l'input directement dans autoComplete.
+   J'ai pas utilisé les appels API avec terms, car j'ai repris les bases que j'avais commencer hier,
+   et comment le j'avais compris quand c'était écris en fonction, je pensais qu'il fallait passer 
+   directement une fonction de recherche a l'Autocomplete.
+   J'ai voulu les utilisés après avoir fini tous les inputs mais j'ai pas eu le temps.
+
+   Donc je passe directement une fonction de recherche au composant Autocomplete 
+   qui va filtrer les données en fonction du texte dans l'input directement dans autoComplete.
   ---- !!!!!!!!!!!!!!!!!!!!!!! ---- */
 
   // const searchUsers = async (term) => {
@@ -130,14 +135,12 @@ export default function Input() {
     <div>
       <h1>1. Autocomplete User simple avec data en prop</h1>
       <Autocomplete data={pokemonName} onSelect={handleSelect} />
-
       <h1>2. Autocomplete User simple avec data en fonction</h1>
       <Autocomplete
         data={userList}
         onSelect={handleSelect}
         searchFunction={searchUser}
       />
-
       <h1>3. Autocomplete User avec sélection multiple data en fonction </h1>
       <Autocomplete
         data={multipleSearchUsersAndProducts}
@@ -145,14 +148,12 @@ export default function Input() {
         searchFunction={seatchMultipleUsersAndProducts}
         isMultiSelect={true}
       />
-
       <h1>4. Autocomplete Product simple avec data en fonction</h1>
       <Autocomplete
         data={productList}
         onSelect={handleSelect}
         searchFunction={searchProduct}
       />
-
       <h1>5. Autocomplete Product avec sélection multiple data en fonction </h1>
       <Autocomplete
         data={productList}
@@ -160,7 +161,6 @@ export default function Input() {
         searchFunction={searchProduct}
         isMultiSelect={true}
       />
-
       <h1>6. Autocomplete avec sélection multiple data multiple en fonction</h1>
       <Autocomplete
         data={multipleSearchUsersAndProducts}
@@ -168,15 +168,15 @@ export default function Input() {
         searchFunction={seatchMultipleUsersAndProducts}
         isMultiSelect={true}
       />
-
       <h1>
         7. Autocomplete Product multiple avec template et data en fonction
       </h1>
       <Autocomplete
-        data={multipleSearchUsersAndProducts}
+        data={productList}
         onSelect={handleMultiSelect}
-        searchFunction={seatchMultipleUsersAndProducts}
+        searchFunction={searchProduct}
         isMultiSelect={true}
+        template={ProductTemplate}
       />
     </div>
   );

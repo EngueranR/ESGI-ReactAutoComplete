@@ -7,6 +7,7 @@ export default function Autocomplete({
   onSelect,
   searchFunction,
   isMultiSelect = false,
+  template: TemplateComponent,
 }) {
   const [suggestions, setSuggestions] = useState([]);
   const [text, setText] = useState("");
@@ -62,16 +63,25 @@ export default function Autocomplete({
 
       {isDropdownVisible && (
         <ul className="suggestions-list">
-          {suggestions.map((suggestion, index) => (
-            <li key={index} onClick={() => handleSuggestionClick(suggestion)}>
-              {suggestion.icon && (
-                <FontAwesomeIcon icon={icon[suggestion.icon]} />
-              )}
-              {typeof suggestion === "string"
-                ? suggestion
-                : suggestion.label || suggestion.titre}
-            </li>
-          ))}
+          {suggestions.map((suggestion, index) =>
+            TemplateComponent ? (
+              <TemplateComponent
+                key={index}
+                suggestion={suggestion}
+                index={index}
+                onClick={handleSuggestionClick}
+              />
+            ) : (
+              <li key={index} onClick={() => handleSuggestionClick(suggestion)}>
+                {suggestion.icon && (
+                  <FontAwesomeIcon icon={icon[suggestion.icon]} />
+                )}
+                {typeof suggestion === "string"
+                  ? suggestion
+                  : suggestion.label || suggestion}
+              </li>
+            )
+          )}
         </ul>
       )}
     </div>
