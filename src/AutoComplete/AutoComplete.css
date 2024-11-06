@@ -1,0 +1,71 @@
+.autocomplete {
+  border: 1px solid #088080;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.autocomplete input,
+.autocomplete input:focus-visible {
+  border: none;
+  outline: none;
+  padding: 8px 32px 8px 8px;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.autocomplete .icon {
+  font-size: 20px;
+  color: #088080;
+  position: absolute;
+  right: 10px;
+  pointer-events: none;
+}
+
+.suggestions-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 8px 0 0 0;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-top: none;
+  max-height: 150px;
+  overflow-y: auto;
+  background-color: white;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 4px 4px;
+}
+
+.suggestions-list li {
+  padding: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.suggestions-list li:hover {
+  background-color: #f0f0f0;
+}
+
+.selected-items {
+  display: flex;
+  width: 100%;
+}
+
+.selected-item {
+  display: flex;
+  align-items: center;
+  background-color: #e0f7fa;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #00796b;
+  margin-right: 4px;
+}

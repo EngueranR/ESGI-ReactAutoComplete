@@ -1,0 +1,137 @@
+import React, { useState } from "react";
+import Autocomplete from "../AutoComplete/AutoComplete";
+
+export default function Input() {
+  const [selectedValue, setSelectedValue] = useState("");
+  const [selectedMultiValues, setSelectedMultiValues] = useState([]);
+
+  const pokemon = [
+    { titre: "Salamèche", type: "feu", attaque: 52, hp: 39, defense: 43 },
+    { titre: "Carapuce", type: "eau", attaque: 48, hp: 44, defense: 65 },
+    { titre: "Bulbizarre", type: "plante", attaque: 49, hp: 45, defense: 49 },
+    { titre: "Pikachu", type: "électrique", attaque: 55, hp: 35, defense: 40 },
+    { titre: "Darkrai", type: "ténèbres", attaque: 90, hp: 70, defense: 90 },
+    { titre: "Mew", type: "psy", attaque: 100, hp: 100, defense: 100 },
+    { titre: "Mewtwo", type: "psy", attaque: 110, hp: 106, defense: 90 },
+    { titre: "Dracaufeu", type: "feu", attaque: 84, hp: 78, defense: 78 },
+    { titre: "Tortank", type: "eau", attaque: 83, hp: 79, defense: 100 },
+    { titre: "Poissirène", type: "eau", attaque: 65, hp: 65, defense: 65 },
+  ];
+
+  const object = [
+    { titre: "Potion", effet: "Restaure 20 HP", type: "soin" },
+    { titre: "Super Potion", effet: "Restaure 50 HP", type: "soin" },
+    { titre: "Hyper Potion", effet: "Restaure 120 HP", type: "soin" },
+    { titre: "Potion Max", effet: "Restaure tous les HP", type: "soin" },
+    { titre: "Antidote", effet: "Soigne l'empoisonnement", type: "statut" },
+    { titre: "Anti-Para", effet: "Soigne la paralysie", type: "statut" },
+    {
+      titre: "Rappel",
+      effet: "Restaure 50% des HP d'un Pokémon KO",
+      type: "soin",
+    },
+    {
+      titre: "Rappel Max",
+      effet: "Restaure tous les HP d'un Pokémon KO",
+      type: "soin",
+    },
+    {
+      titre: "Attaque+",
+      effet: "Augmente l'attaque de 1 niveau",
+      type: "boost",
+    },
+    {
+      titre: "Défense+",
+      effet: "Augmente la défense de 1 niveau",
+      type: "boost",
+    },
+    {
+      titre: "Vitesse+",
+      effet: "Augmente la vitesse de 1 niveau",
+      type: "boost",
+    },
+    {
+      titre: "Précision+",
+      effet: "Augmente la précision de 1 niveau",
+      type: "boost",
+    },
+    {
+      titre: "PV Plus",
+      effet: "Augmente les PV de base de 10 points",
+      type: "boost permanent",
+    },
+    {
+      titre: "PP Plus",
+      effet: "Augmente le PP max d'une attaque",
+      type: "boost permanent",
+    },
+    {
+      titre: "Graine Miracle",
+      effet: "Augmente la puissance des attaques de type plante",
+      type: "objet de combat",
+    },
+    {
+      titre: "Charbon",
+      effet: "Augmente la puissance des attaques de type feu",
+      type: "objet de combat",
+    },
+    {
+      titre: "Eau Mystique",
+      effet: "Augmente la puissance des attaques de type eau",
+      type: "objet de combat",
+    },
+    {
+      titre: "Boule Fumée",
+      effet: "Permet de fuir les combats contre des Pokémon sauvages",
+      type: "objet spécial",
+    },
+  ];
+
+  const pokemonAndObject = [...pokemon, ...object];
+
+  const handleSelect = (value) => {
+    setSelectedValue(value.titre || value);
+  };
+
+  const handleMultiSelect = (values) => {
+    setSelectedMultiValues(values);
+  };
+
+  const searchPokemonAndObject = (item, searchText) => {
+    const lowerText = searchText.toLowerCase();
+    return (
+      item.titre.toLowerCase().includes(lowerText) ||
+      (item.type && item.type.toLowerCase().includes(lowerText)) ||
+      (item.effet && item.effet.toLowerCase().includes(lowerText)) ||
+      (item.attaque && item.attaque.toString().includes(lowerText)) ||
+      (item.hp && item.hp.toString().includes(lowerText)) ||
+      (item.defense && item.defense.toString().includes(lowerText))
+    );
+  };
+
+  return (
+    <div>
+      <h1>Autocomplete user simple avec data en props</h1>
+      <Autocomplete data={data} onSelect={handleSelect} />
+      <h1>Autocomplete avec recherche multi-attributs</h1>
+      <Autocomplete
+        data={pokemonAndObject}
+        onSelect={handleSelect}
+        searchFunction={searchPokemonAndObject}
+      />
+      <h1>Autocomplete User simple avec data en fonction</h1>
+      <Autocomplete
+        data={pokemonAndObject}
+        onSelect={handleSelect}
+        searchFunction={searchPokemonAndObject}
+      />
+      <h1>Autocomplete avec sélection multiple</h1>
+      <Autocomplete
+        data={pokemonAndObject}
+        onSelect={handleMultiSelect}
+        searchFunction={searchPokemonAndObject}
+        isMultiSelect={true}
+      />
+    </div>
+  );
+}
